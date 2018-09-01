@@ -1,0 +1,15 @@
+name: rounded_modal
+description: A custom implementation of showModalBottomSheet
+version: 0.0.1
+author: Gildásio Filho <gildasiogx@gmail.com>
+homepage: https://github.com/gildaswise/rounded_modal
+
+environment:
+  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
