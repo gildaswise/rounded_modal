@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-// Adapted from https://gist.github.com/slightfoot/5af4c5dfa52194a3f8577bf83af2e391
+/// Adapted from https://gist.github.com/slightfoot/5af4c5dfa52194a3f8577bf83af2e391
 
 /// Below is the usage for this function, you'll only have to import this file
 /// [radius] takes a double and will be the radius to the rounded corners of this modal
@@ -53,29 +53,19 @@ const Duration _kRoundedBottomSheetDuration = const Duration(milliseconds: 300);
 const double _kMinFlingVelocity = 600.0;
 const double _kCloseProgressThreshold = 0.5;
 
-/// A material design bottom sheet.
-///
-/// There are two kinds of bottom sheets in material design:
-///
-///  * _Persistent_. A persistent bottom sheet shows information that
-///    supplements the primary content of the app. A persistent bottom sheet
-///    remains visible even when the user interacts with other parts of the app.
-///    Persistent bottom sheets can be created and displayed with the
-///    [ScaffoldState.showBottomSheet] function.
+/// A material design modal bottom sheet.
 ///
 ///  * _Modal_. A modal bottom sheet is an alternative to a menu or a dialog and
 ///    prevents the user from interacting with the rest of the app. Modal bottom
-///    sheets can be created and displayed with the [showModalBottomSheet]
+///    sheets can be created and displayed with the [showRoundedModalBottomSheet]
 ///    function.
 ///
-/// The [BottomSheet] widget itself is rarely used directly. Instead, prefer to
-/// create a persistent bottom sheet with [ScaffoldState.showBottomSheet] and a modal
-/// bottom sheet with [showModalBottomSheet].
+/// The [RoundedBottomSheet] widget itself is rarely used directly. Instead, prefer to
+/// create a modal bottom sheet with [showRoundedModalBottomSheet].
 ///
 /// See also:
 ///
-///  * [ScaffoldState.showBottomSheet]
-///  * [showModalBottomSheet]
+///  * [showRoundedModalBottomSheet]
 ///  * <https://material.google.com/components/bottom-sheets.html>
 class RoundedBottomSheet extends StatefulWidget {
   /// Creates a bottom sheet.
@@ -225,6 +215,12 @@ class RoundedCornerModalRoute<T> extends PopupRoute<T> {
   bool get barrierDismissible => true;
 
   @override
+  bool get opaque => false;
+
+  @override
+  bool get maintainState => false;
+
+  @override
   String barrierLabel;
 
   AnimationController animationController;
@@ -257,8 +253,8 @@ class RoundedModalBottomSheet<T> extends StatefulWidget {
   final RoundedCornerModalRoute<T> route;
 
   @override
-  _RoundedModalBottomSheetState createState() =>
-      _RoundedModalBottomSheetState();
+  _RoundedModalBottomSheetState<T> createState() =>
+      _RoundedModalBottomSheetState<T>();
 }
 
 class _RoundedModalBottomSheetState<T>
