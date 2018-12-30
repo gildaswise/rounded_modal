@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 /// Below is the usage for this function, you'll only have to import this file
 /// [radius] takes a double and will be the radius to the rounded corners of this modal
-/// [color] will color the modal itself, the default being `Colors.white`
+/// [color] will color the modal itself, the default being `Theme.of(context).canvasColor`
 /// [builder] takes the content of the modal, if you're using [Column]
 /// or a similar widget, remember to set `mainAxisSize: MainAxisSize.min`
 /// so it will only take the needed space.
@@ -20,14 +20,14 @@ import 'package:flutter/material.dart';
 /// showRoundedModalBottomSheet(
 ///    context: context,
 ///    radius: 10.0,  // This is the default
-///    color: Colors.white,  // Also default
+///    color: Colors.white,
 ///    builder: (context) => ???,
 /// );
 /// ```
 Future<T> showRoundedModalBottomSheet<T>({
   @required BuildContext context,
   @required WidgetBuilder builder,
-  Color color: Colors.white,
+  Color color,
   double radius: 10.0,
   bool autoResize: true,
   bool dismissOnTap: true,
@@ -35,7 +35,9 @@ Future<T> showRoundedModalBottomSheet<T>({
   assert(context != null);
   assert(builder != null);
   assert(radius != null && radius > 0.0);
-  assert(color != null && color != Colors.transparent);
+  assert( color != Colors.transparent);
+  if(color==null)  color =Theme.of(context).canvasColor;
+
   return Navigator.push<T>(
     context,
     RoundedCornerModalRoute<T>(
@@ -75,9 +77,9 @@ class RoundedBottomSheet extends StatefulWidget {
   /// [showModalBottomSheet], for modal bottom sheets.
   const RoundedBottomSheet(
       {Key key,
-      this.animationController,
-      @required this.onClosing,
-      @required this.builder})
+        this.animationController,
+        @required this.onClosing,
+        @required this.builder})
       : assert(onClosing != null),
         assert(builder != null),
         super(key: key);
@@ -266,28 +268,28 @@ class _RoundedModalBottomSheetState<T>
       child: AnimatedBuilder(
         animation: widget.route.animation,
         builder: (context, child) => CustomSingleChildLayout(
-              delegate: _RoundedModalBottomSheetLayout(
-                  widget.route.autoResize
-                      ? MediaQuery.of(context).viewInsets.bottom
-                      : 0.0,
-                  widget.route.animation.value),
-              child: RoundedBottomSheet(
-                animationController: widget.route.animationController,
-                onClosing: () => Navigator.pop(context),
-                builder: (context) => Container(
-                      decoration: BoxDecoration(
-                        color: widget.route.color,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(widget.route.radius),
-                          topRight: Radius.circular(widget.route.radius),
-                        ),
-                      ),
-                      child: SafeArea(
-                        child: Builder(builder: widget.route.builder),
-                      ),
-                    ),
+          delegate: _RoundedModalBottomSheetLayout(
+              widget.route.autoResize
+                  ? MediaQuery.of(context).viewInsets.bottom
+                  : 0.0,
+              widget.route.animation.value),
+          child: RoundedBottomSheet(
+            animationController: widget.route.animationController,
+            onClosing: () => Navigator.pop(context),
+            builder: (context) => Container(
+              decoration: BoxDecoration(
+                color: widget.route.color,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(widget.route.radius),
+                  topRight: Radius.circular(widget.route.radius),
+                ),
+              ),
+              child: SafeArea(
+                child: Builder(builder: widget.route.builder),
               ),
             ),
+          ),
+        ),
       ),
     );
   }
