@@ -266,28 +266,28 @@ class _RoundedModalBottomSheetState<T>
       child: AnimatedBuilder(
         animation: widget.route.animation,
         builder: (context, child) => CustomSingleChildLayout(
-              delegate: _RoundedModalBottomSheetLayout(
-                  widget.route.autoResize
-                      ? MediaQuery.of(context).viewInsets.bottom
-                      : 0.0,
-                  widget.route.animation.value),
-              child: RoundedBottomSheet(
-                animationController: widget.route.animationController,
-                onClosing: () => Navigator.pop(context),
-                builder: (context) => Container(
-                      decoration: BoxDecoration(
-                        color: widget.route.color,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(widget.route.radius),
-                          topRight: Radius.circular(widget.route.radius),
-                        ),
-                      ),
-                      child: SafeArea(
-                        child: Builder(builder: widget.route.builder),
-                      ),
-                    ),
+          delegate: _RoundedModalBottomSheetLayout(
+              widget.route.autoResize
+                  ? MediaQuery.of(context).viewInsets.bottom
+                  : 0.0,
+              widget.route.animation.value),
+          child: RoundedBottomSheet(
+            animationController: widget.route.animationController,
+            onClosing: () => Navigator.pop(context),
+            builder: (context) => Container(
+              decoration: BoxDecoration(
+                color: widget.route.color,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(widget.route.radius),
+                  topRight: Radius.circular(widget.route.radius),
+                ),
+              ),
+              child: SafeArea(
+                child: Builder(builder: widget.route.builder),
               ),
             ),
+          ),
+        ),
       ),
     );
   }

@@ -1,5 +1,20 @@
 # rounded_modal
 
+## THIS PLUGIN IS NOW DEPRECATED
+
+You can now properly use borders with the default implementation of `showModalBottomSheet`!
+
+```dart
+showModalBottomSheet(
+  shape: RoundedRectangleBorder(
+     borderRadius: BorderRadius.circular(10.0),
+  ),
+  backgroundColor: Colors.white,
+);
+```
+
+##
+
 A custom implementation of `showModalBottomSheet`.
 
 Instead of overriding the entire theme of the app (which caused problems in various parts of my app) as suggested by other solutions on "How to set rounded corners of a modal?", I decided to take a look at the implementation for `showModalBottomSheet` and find the problem myself. 
