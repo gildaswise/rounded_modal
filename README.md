@@ -23,6 +23,8 @@ Instead of overriding the entire theme of the app (which caused problems in vari
 
 Turns out that all that was needed was wrapping the main code for the modal in a Theme widget that contains the `canvasColor: Colors.transparent` trick. I also made it easier to customize the radius and the background color of the modal itself.
 
+![screenshot](https://user-images.githubusercontent.com/1339236/55436807-9b807d80-5573-11e9-8486-1178024a4caf.png)
+
 ```Dart
 import 'package:rounded_modal/rounded_modal.dart';
 
